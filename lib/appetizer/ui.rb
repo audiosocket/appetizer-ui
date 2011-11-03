@@ -14,14 +14,6 @@ module Appetizer
 
       app.configure :development do
         app.use Rack::CommonLogger, App.log
-
-        begin
-          require "sinatra/reloader"
-          app.register Sinatra::Reloader
-          app.also_reload "lib/**/*.rb"
-        rescue LoadError
-          warn "Want reloads? Add sinatra-reloader to your Gemfile."
-        end
       end
 
       app.set :scss, cache_location: "tmp/sass-cache", style: :compact
