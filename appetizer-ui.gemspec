@@ -13,6 +13,8 @@ Gem::Specification.new do |gem|
   gem.version       = "0.0.0"
 
   gem.add_dependency "appetizer", "0.0.0"
+
+  gem.add_dependency "nokogiri",  "~> 1.5"
   gem.add_dependency "sinatra",   "~> 1.3"
   gem.add_dependency "rack-ssl",  "~> 1.3"
   gem.add_dependency "sass",      "~> 3.1"

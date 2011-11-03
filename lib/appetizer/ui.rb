@@ -1,4 +1,5 @@
 require "appetizer/setup"
+require "appetizer/ui/page"
 require "sass"
 require "sinatra/base"
 
