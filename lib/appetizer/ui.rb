@@ -2,6 +2,7 @@ require "appetizer/setup"
 require "appetizer/ui/page"
 require "sass"
 require "sinatra/base"
+require "yajl"
 
 module Appetizer
   module UI
@@ -24,6 +25,17 @@ module Appetizer
       end
 
       app.set :scss, cache_location: "tmp/sass-cache", style: :compact
+
+      app.helpers do
+        def created thing
+          halt 201, json(thing)
+        end
+
+        def json thing
+          content_type :json, charset: "utf-8"
+          Yajl::Encoder.encode thing
+        end
+      end
 
       app.get "/css/:name.css" do |name|
         scss :"css/#{name}"
