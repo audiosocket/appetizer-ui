@@ -12,7 +12,7 @@ module Appetizer
 
       def initialize source, options = {}
         @config = {}
-        @jsdirs = Array options[:jsdirs] || %w(public/js views/js)
+        @jsdirs = Array options[:jsdirs] || %w(public/js src)
         @source = source
         @views  = options[:views] || "views/**/*.eco"
       end
