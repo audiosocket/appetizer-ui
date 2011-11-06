@@ -2,6 +2,7 @@ require "appetizer/setup"
 require "appetizer/ui/page"
 require "barista"
 require "sass"
+require "securerandom"
 require "sinatra/base"
 require "yajl"
 
@@ -9,7 +10,12 @@ module Appetizer
   module UI
     def self.registered app
 
-      # ALl production apps better be using SSL.
+      # Make sure that exception handling works the same in
+      # development and production.
+
+      app.set :show_exceptions, false
+
+      # All production apps better be using SSL.
 
       app.configure :production do
         require "rack/ssl"
@@ -45,6 +51,18 @@ module Appetizer
       # Serve tmp/js until we decide on an asset pipeline we like.
 
       app.use Rack::Static, root: "tmp", urls: ["/js"]
+
+      # Set up cookie sessions and authenticity token checking. Add
+      # some basic defaults, but allow them to be overridden.
+
+      use Rack::Session::Cookie, key: (ENV["APPETIZER_COOKIE_NAME"] || "app-session"),
+        secret: (ENV["APPETIZER_SESSION_SECRET"] || "app-session-secret")
+
+      use Rack::Protection::AuthenticityToken
+
+      app.before do
+        session[:csrf] ||= SecureRandom.hex 32
+      end
 
       app.helpers do
 
