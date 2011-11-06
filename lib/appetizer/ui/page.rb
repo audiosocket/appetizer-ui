@@ -12,7 +12,6 @@ module Appetizer
 
       def initialize source, options = {}
         @config = {}
-        @jsdirs = Array options[:jsdirs] || %w(public/js src)
         @source = source
         @views  = options[:views] || "views/**/*.eco"
       end
@@ -48,12 +47,8 @@ module Appetizer
         scripts = html.css("#scripts").first
 
         expanded = scripts.css("script[src]").map do |tag|
-          src = tag[:src][4..-4] # remove /js and .js
-
-          @jsdirs.map do |base|
-            Dir["#{base}/#{src}.{coffee,js}"].map do |f|
-              "/js/" + f[(base.length + 1)..-1].sub(/\.coffee$/, ".js")
-            end
+          Dir[File.join "{.,public}", tag[:src]].sort.map do |f|
+            f.sub(/^public/, "").sub(/^\./, "/js").sub(/\.coffee$/, ".js")
           end
         end
 

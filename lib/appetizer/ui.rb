@@ -36,7 +36,7 @@ module Appetizer
 
       # Build CoffeeScript from src, dump it in tmp/js.
 
-      Barista.output_root = "tmp/js"
+      Barista.output_root = "public/js/src"
       Barista.root        = "src"
       Barista.env         = App.env
 
@@ -47,10 +47,6 @@ module Appetizer
       # Dynamically recompile .coffee files, but not in production.
 
       app.use Barista::Filter unless App.production?
-
-      # Serve tmp/js until we decide on an asset pipeline we like.
-
-      app.use Rack::Static, root: "tmp", urls: ["/js"]
 
       # Set up cookie sessions and authenticity token checking. Add
       # some basic defaults, but allow them to be overridden.
