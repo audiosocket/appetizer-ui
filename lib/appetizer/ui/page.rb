@@ -12,6 +12,7 @@ module Appetizer
 
       def initialize source, options = {}
         @config = {}
+        @html   = Nokogiri::HTML File.read source
         @source = source
         @views  = options[:views] || "views/**/*.eco"
       end
@@ -20,9 +21,18 @@ module Appetizer
         @config[k] = v
       end
 
+      # What's the actual set of JS files this page needs?
+
+      def javascripts
+        @javascripts ||= @html.css("#scripts script[src]").map do |tag|
+          Dir[File.join "{.,public}", tag[:src]].sort.map do |f|
+            f.sub(/^public/, "").sub(/^\./, "/js").sub(/\.coffee$/, ".js")
+          end
+        end.flatten
+      end
+
       def render
-        html = Nokogiri::HTML File.read @source
-        head = html.css("head").first
+        head = @html.css("head").first
 
         # Add all config values as meta tags.
 
@@ -32,7 +42,7 @@ module Appetizer
 
         # Add all template files as script tags.
 
-        templates = html.css("#templates").first
+        templates = @html.css("#templates").first
 
         Nokogiri::HTML::Builder.with templates do |t|
           Dir[@views].sort.each do |f|
@@ -42,27 +52,19 @@ module Appetizer
           end
         end
 
-        # Munge script tags.
+        scripts = @html.css("#scripts").first
 
-        scripts = html.css("#scripts").first
+        if App.production?
+          scripts.replace "<script src=/js/all.js></script>"
+        else
+          scripts.children.remove
 
-        expanded = scripts.css("script[src]").map do |tag|
-          Dir[File.join "{.,public}", tag[:src]].sort.map do |f|
-            f.sub(/^public/, "").sub(/^\./, "/js").sub(/\.coffee$/, ".js")
+          Nokogiri::HTML::Builder.with scripts do |s|
+            javascripts.each { |src| s.script src: src }
           end
         end
 
-        # Remove the original script tags.
-
-        scripts.children.remove
-
-        # Write some new ones.
-
-        Nokogiri::HTML::Builder.with scripts do |s|
-          expanded.flatten.each { |src| s.script src: src }
-        end
-
-        html.to_s
+        @html.to_s
       end
     end
   end
