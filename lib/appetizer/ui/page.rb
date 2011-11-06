@@ -54,7 +54,6 @@ module Appetizer
         if App.production?
           scripts.replace "<script src=/js/all.js></script>"
         else
-
           scripts.children.remove
 
           Nokogiri::HTML::Builder.with scripts do |s|
