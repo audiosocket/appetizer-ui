@@ -8,6 +8,7 @@ module Appetizer
     # container with the "templates" ID.
 
     class Page
+      attr_reader :javascripts
       attr_reader :source
 
       def initialize source, options = {}
@@ -15,20 +16,16 @@ module Appetizer
         @html   = Nokogiri::HTML File.read source
         @source = source
         @views  = options[:views] || "views/**/*.eco"
-      end
 
-      def []= k, v
-        @config[k] = v
-      end
-
-      # What's the actual set of JS files this page needs?
-
-      def javascripts
         @javascripts ||= @html.css("#scripts script[src]").map do |tag|
           Dir[File.join "{.,public}", tag[:src]].sort.map do |f|
             f.sub(/^public/, "").sub(/^\./, "/js").sub(/\.coffee$/, ".js")
           end
         end.flatten
+      end
+
+      def []= k, v
+        @config[k] = v
       end
 
       def render
@@ -57,6 +54,7 @@ module Appetizer
         if App.production?
           scripts.replace "<script src=/js/all.js></script>"
         else
+
           scripts.children.remove
 
           Nokogiri::HTML::Builder.with scripts do |s|
