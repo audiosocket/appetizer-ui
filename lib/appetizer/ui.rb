@@ -55,7 +55,8 @@ module Appetizer
       # Set up cookie sessions and authenticity token checking. Add
       # some basic defaults, but allow them to be overridden.
 
-      app.use Rack::Session::Cookie, key: (ENV["APPETIZER_COOKIE_NAME"] || "app-session"),
+      app.use Rack::Session::Cookie,
+        key:    (ENV["APPETIZER_COOKIE_NAME"] || "app-session"),
         secret: (ENV["APPETIZER_SESSION_SECRET"] || "app-session-secret")
 
       app.use Rack::Protection::AuthenticityToken
