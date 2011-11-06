@@ -1,5 +1,6 @@
 require "appetizer/setup"
 require "appetizer/ui/page"
+require "barista"
 require "sass"
 require "sinatra/base"
 require "yajl"
@@ -17,6 +18,15 @@ module Appetizer
       end
 
       app.set :scss, cache_location: "tmp/sass-cache", style: :compact
+
+      Barista.output_root = "tmp/js"
+      Barista.root        = "src"
+      Barista.env         = App.env
+
+      Barista.compile_all!
+
+      app.use Barista::Filter unless App.production?
+      app.use Rack::Static, root: "tmp", urls: ["/js"]
 
       app.helpers do
         def created thing
