@@ -1,7 +1,11 @@
 require "appetizer/rake"
 
-desc "Precompile the app's CSS and JS files."
-task "assets:precompile" => :init do
+# For Heroku.
+
+task "assets:precompile" => :compile
+
+desc "Compile the app's CSS and JS files."
+task :compile => :init do
   require "appetizer/ui/assets"
   require "fileutils"
   require "yaml"
