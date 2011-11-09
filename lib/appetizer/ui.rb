@@ -1,6 +1,5 @@
 require "appetizer/setup"
 require "appetizer/ui/page"
-require "barista"
 require "sass"
 require "securerandom"
 require "sinatra/base"
@@ -37,20 +36,6 @@ module Appetizer
       # Build CSS under tmp, not in the project root.
 
       app.set :scss, cache_location: "tmp/sass-cache", style: :compact
-
-      # Build CoffeeScript from src, dump it in tmp/js.
-
-      Barista.output_root = "public/js/src"
-      Barista.root        = "src"
-      Barista.env         = App.env
-
-      # Compile everything on startup.
-
-      Barista.compile_all!
-
-      # Dynamically recompile .coffee files, but not in production.
-
-      app.use Barista::Filter unless App.production?
 
       # Set up cookie sessions and authenticity token checking. Add
       # some basic defaults, but allow them to be overridden.
