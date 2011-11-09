@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "coffee-script",  "~> 2.2"
   gem.add_dependency "eco",            "~> 1.0"
-  gem.add_dependency "nokogiri",       "~> 1.5"
   gem.add_dependency "rack-ssl",       "~> 1.3"
   gem.add_dependency "sass",           "~> 3.1"
   gem.add_dependency "sinatra",        "~> 1.3"
