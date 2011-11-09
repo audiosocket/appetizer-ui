@@ -23,8 +23,10 @@ module App
       # don't understand it yet), so we're manually creating the
       # over-nested directory for the moment.
 
-      FileUtils.mkdir_p "tmp/sprockets/sprockets"
-      s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
+      unless App.production?
+        FileUtils.mkdir_p "tmp/sprockets/sprockets"
+        s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
+      end
 
       %w(css img js views).each do |d|
         s.append_path "./app/#{d}"
