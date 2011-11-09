@@ -1,3 +1,5 @@
+require "appetizer/rake"
+
 desc "Precompile the app's CSS and JS files."
 task "assets:precompile" => :init do
   require "appetizer/ui/assets"
