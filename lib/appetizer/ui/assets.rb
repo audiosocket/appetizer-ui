@@ -71,7 +71,7 @@ module Appetizer
           end
 
           def cdnify path
-            [ENV["APPETIZER_CDN_URL"], path].compact.join "/"
+            File.join [ENV["APPETIZER_CDN_URL"], path].compact
           end
         end
       end
