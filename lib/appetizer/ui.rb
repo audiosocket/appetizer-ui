@@ -1,4 +1,4 @@
-require "appetizer/setup"
+require "appetizer/init"
 require "appetizer/ui/assets"
 require "sass"
 require "securerandom"
