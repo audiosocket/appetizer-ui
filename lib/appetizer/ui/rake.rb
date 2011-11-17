@@ -15,13 +15,13 @@ task :compile => :init do
   App.assets.each_logical_path do |path|
     next if File.basename(path).start_with? "_"
 
-    asset = App.assets[path]
-    file  = "public/assets/#{asset.digest_path}"
+    if asset = App.assets[path]
+      manifest[path] = asset.digest_path
+      file = "public/assets/#{asset.digest_path}"
 
-    manifest[path] = asset.digest_path
-
-    FileUtils.mkdir_p File.dirname file
-    asset.write_to file
+      FileUtils.mkdir_p File.dirname file
+      asset.write_to file
+    end
   end
 
   File.open "public/assets/manifest.yml", "wb" do |f|
