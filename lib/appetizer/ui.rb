@@ -61,7 +61,19 @@ module Appetizer
 
         def json thing
           content_type :json, charset: "utf-8"
+          jsonify thing
+        end
+
+        # Encode `thing` as JSON.
+
+        def jsonify thing
           Yajl::Encoder.encode thing
+        end
+
+        # The asset manifest.
+
+        def manifest
+          Appetizer::UI::Assets.manifest
         end
       end
     end
