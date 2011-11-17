@@ -13,6 +13,8 @@ task :compile => :init do
   manifest = {}
 
   App.assets.each_logical_path do |path|
+    next if File.basename(path).start_with? "_"
+
     asset = App.assets[path]
     file  = "public/assets/#{asset.digest_path}"
 
