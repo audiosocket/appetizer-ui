@@ -66,13 +66,15 @@ module Appetizer
             cdnify "/assets/#{App.assets[name].logical_path}"
           end
 
-          def assets name
-            return [asset(name)] if App.production?
+          def assets *names
+            names.flat_map do |name|
+              next asset n if App.production?
 
-            asset = App.assets[name]
+              asset = App.assets[name]
 
-            [asset.dependencies, asset].flatten.map do |dep|
-              "/assets/#{dep.logical_path}?body=true&buster=#{SecureRandom.hex 10}"
+              [asset.dependencies, asset].flatten.map do |dep|
+                "/assets/#{dep.logical_path}?body=true&buster=#{SecureRandom.hex 10}"
+              end
             end
           end
 
