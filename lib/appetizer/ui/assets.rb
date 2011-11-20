@@ -34,7 +34,6 @@ module App
       %w(css img js views).each do |d|
         s.append_path "./app/#{d}"
         s.append_path "./vendor/#{d}"
-        s.append_path "./spec/#{d}" unless App.production?
       end
     end
   end
