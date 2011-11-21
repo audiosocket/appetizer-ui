@@ -20,7 +20,7 @@ task :compile => :init do
     next if path.to_s.end_with? ".jst.jade" # HACK
 
     if asset = App.assets[path]
-      manifest[path] = asset.digest_path
+      manifest[asset.logical_path] = asset.digest_path
       file = "public/assets/#{asset.digest_path}"
 
       FileUtils.mkdir_p File.dirname file
