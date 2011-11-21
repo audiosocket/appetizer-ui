@@ -67,7 +67,7 @@ module Appetizer
 
           def assets *names
             names.flat_map do |name|
-              next asset n if App.production?
+              next asset name if App.production?
 
               asset = App.assets[name]
 
