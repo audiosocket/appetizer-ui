@@ -1,4 +1,5 @@
 # Appetizer UI
 
-An painfully opinionated Appetizer add-on for writing thin webapps
-using Sinatra, Sass, CoffeeScript, and Sprockets.
+An painfully under-documented and opinionated Appetizer add-on for
+writing webapps using Sinatra, Sass, CoffeeScript, Eco, Backbone.js,
+and Sprockets.
