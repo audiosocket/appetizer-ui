@@ -3,8 +3,6 @@
 # views, default template rendering, async actions before show, and
 # show()/hide()/makeVisible() helpers on top of render() and remove().
 
-window.Appetizer ||= {}
-
 class Appetizer.View extends Backbone.View
 
   # Subclasses must always call `super` in their initializers:
