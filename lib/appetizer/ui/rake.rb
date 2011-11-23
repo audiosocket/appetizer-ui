@@ -17,7 +17,6 @@ task :compile => :init do
   App.assets.each_file do |path|
     next if File.basename(path).start_with? "_"
     next if %r|app/views| =~ path.to_s and not %r|app/views/client| =~ path.to_s
-    next if path.to_s.end_with? ".jst.jade" # HACK
 
     if asset = App.assets[path]
       manifest[asset.logical_path] = asset.digest_path
