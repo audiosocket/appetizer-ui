@@ -53,6 +53,7 @@ class Appetizer.View extends Backbone.View
   hide: (e) ->
     e.preventDefault() if e?.preventDefault?
 
+    @trigger "hiding"
     @remove()
 
     @trigger "hidden"
@@ -89,6 +90,7 @@ class Appetizer.View extends Backbone.View
     template = @options.template || @template || "appetizer/missing"
     renderer = JST["client/#{template}"] or JST["client/appetizer/missing"]
 
+    @trigger "rendering"
     $(@el).html renderer this
     @trigger "rendered"
 
@@ -101,6 +103,7 @@ class Appetizer.View extends Backbone.View
 
   show: ->
     @aroundShow =>
+      @trigger "showing"
       @makeVisible()
       @trigger "shown"
 
