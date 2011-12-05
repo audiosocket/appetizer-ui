@@ -74,7 +74,7 @@ class Appetizer.View extends Backbone.View
   # Remove `view` from this view's list of children. Returns `this`.
 
   removeChild: (view) ->
-    @children.splice @children.indexOf(view), 1
+    @children.splice _.indexOf(@children, view), 1
     this
 
   # Render the contents of the view. Updates the view element's
