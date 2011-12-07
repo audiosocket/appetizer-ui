@@ -1,6 +1,5 @@
 #= require json2
 #= require jquery
-#= require jquery.iecors
 #= require underscore
 #= require underscore.string
 #= require backbone
