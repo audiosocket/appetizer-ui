@@ -117,6 +117,7 @@ class Appetizer.View extends Backbone.View
       @makeVisible()
       @trigger "shown"
 
+      @shown = true
       child.trigger "ancestor:shown" for child in @children
 
     this
