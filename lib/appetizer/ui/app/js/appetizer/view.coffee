@@ -12,6 +12,16 @@ class Appetizer.View extends Backbone.View
     @bindings = []
     @children = []
     @parent   = options.parent if options?.parent?
+    @bind "ancestor:shown", ->
+      child.trigger "ancestor:shown" for child in @children
+      @shown = true
+
+  # true if the element or its ancestor have already been shown.
+  # Can be used at rendering time to execute operations that
+  # need the element to be hooked-up in the DOM, such as computing
+  # its height.
+
+  shown: false
 
   # Add a child `view`. Its `parent` will be set to `this`, and it
   # will be dismissed when this view is dismissed.
@@ -106,6 +116,8 @@ class Appetizer.View extends Backbone.View
       @trigger "showing"
       @makeVisible()
       @trigger "shown"
+
+      child.trigger "ancestor:shown" for child in @children
 
     this
 
