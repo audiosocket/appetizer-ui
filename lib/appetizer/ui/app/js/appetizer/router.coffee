@@ -5,12 +5,9 @@ class Appetizer.Router extends Backbone.Router
     # Register dynamic routes
   
     if @dynamicRoutes?
-      if typeof @dynamicRoutes == "function"
-        dynamicRoutes = @dynamicRoutes()
-      else
-        dynamicRoutes = @dynamicRoutes
+      routes = if _.isFunction(@dynamicRoutes) then @dynamicRoutes() else @dynamicRoutes
 
-      @route route, handler, this[handler] for route, handler of dynamicRoutes
+      @route route, handler, this[handler] for route, handler of routes
 
     # Create showItem functions
     if @components?
