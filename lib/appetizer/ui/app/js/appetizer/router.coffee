@@ -38,6 +38,7 @@ class Appetizer.Router extends Backbone.Router
       this[item]?.hide true
 
       this[item] = @createChild(kind, options)
+      this[item].currentRoute = Backbone.history.getFragment()
 
       @trigger "#{item}:showing", this[item]
       this[item].bind "shown", => @trigger "#{item}:shown", this[item]
