@@ -12,7 +12,7 @@ one =
       callback.apply this, arguments
       self.unbind.apply self, [ev, fn]
 
-    this.bind.apply this, [ev, fn, context]
+    this.bind ev, fn, context
 
 _.extend Backbone.Model.prototype, one
 _.extend Backbone.Collection.prototype, one
