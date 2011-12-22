@@ -6,9 +6,11 @@ window.Appetizer ||= {}
 
 one =
   one: (ev, callback, context) ->
+    self = this
+    
     fn = ->
       callback.apply this, arguments
-      this.unbind.apply this, [ev, fn]
+      self.unbind.apply self, [ev, fn]
 
     this.bind.apply this, [ev, fn, context]
 
