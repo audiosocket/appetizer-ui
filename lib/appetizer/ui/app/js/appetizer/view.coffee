@@ -12,7 +12,8 @@ class Appetizer.View extends Backbone.View
     @bindings = []
     @children = []
     @parent   = options.parent if options?.parent?
-    
+    @route    = options?.route or @constructor.route
+
     @bind "ancestor:shown", ->
       child.trigger "ancestor:shown" for child in @children
       @shown = true
