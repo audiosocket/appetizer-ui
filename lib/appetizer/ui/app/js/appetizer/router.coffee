@@ -1,9 +1,11 @@
 # A superclass for Backbone.router. It adds the following features:
-# * Register dynamic routes, using @dynamicRoutes. This methods should
-#   return an object, which is used exactly as @routes in Backbone.Router.
+# * Register dynamic routes: the method @dynamicRoutes, if present,
+#   is executed when initializing the router. Using the provided @register
+#   method, it is then possible to register routes within the @dynamicRoutes
+#   method.
 #
 # * Components facilities: the property @components should contain an
-#   array of componenets used in the application, such as "page", "panel",
+#   array of components used in the application, such as "page", "panel",
 #   "sidebar", etc..
 #   For each component, a method showFoo is created, which can then be used
 #   to show a component. For instance, showPage App.View.Page, options. Upon
