@@ -27,14 +27,15 @@ class Appetizer.Router extends Backbone.Router
   initialize: ->
     @children = []
   
-    # Register dynamic routes
-  
-    if @dynamicRoutes?
-      @route route, handler, this[handler] for route, handler of @dynamicRoutes()
+    @dynamicRoutes() if @dynamicRoutes?
 
     # Create showItem functions
+
     if @components?
       @addShowFunction item for item in @components
+
+  register: (route, name) =>
+    @route route, name, this[name]
 
   # Create an instance of a view, set this as the view's parent, and
   # add the view to the router's list of children.
