@@ -27,7 +27,18 @@ Appetizer.transportXDR = (settings, original, xhr) ->
       console.log "FIX: xdr onerror"
 
     xdr.onload = ->
-      [status, headers, body] = $.parseJSON xdr.responseText
+      [status, headers, body] =
+        try
+          $.parseJSON xdr.responseText
+        catch err
+          headers =
+            "Content-Type" : "application/json;charset=UTF-8"
+
+          body = JSON.stringify
+            request  : ["Unexpected platform error."]
+            original : xdr.responseText
+
+          [503, headers, body]
 
       description = statii[status] or "UNKNOWN"
       responses   = text: body
