@@ -11,7 +11,7 @@ require "yui/compressor"
 module App
   def self.assets
     @sprockets ||= Sprockets::Environment.new.tap do |s|
-      if App.production? || ENV["APPETIZER_MINIFY_ASSETS"]
+      if Appetizer::UI::Assets.compiled?
         s.register_bundle_processor "application/javascript", :uglifier do |ctx, data|
           Uglifier.compile data
         end
@@ -26,7 +26,7 @@ module App
       # don't understand it yet), so we're manually creating the
       # over-nested directory for the moment.
 
-      unless App.production?
+      unless Appetizer::UI::Assets.compiled?
         FileUtils.mkdir_p "tmp/sprockets/sprockets"
         s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
       end
@@ -44,6 +44,10 @@ end
 module Appetizer
   module UI
     module Assets
+      def self.compiled?
+        App.production? or ENV["APPETIZER_USE_COMPILED_ASSETS"]
+      end
+
       def self.manifest
         return @manifest if defined? @manifest
 
@@ -60,7 +64,7 @@ module Appetizer
       def self.registered app
         app.helpers do
           def asset name
-            if App.production?
+            if Appetizer::UI::Assets.compiled?
               return cdnify "/assets/#{Appetizer::UI::Assets.manifest[name]}"
             end
 
@@ -69,7 +73,7 @@ module Appetizer
 
           def assets *names
             names.flat_map do |name|
-              next asset name if App.production?
+              next asset name if Appetizer::UI::Assets.compiled?
 
               asset = App.assets[name]
 
@@ -89,3 +93,8 @@ module Appetizer
 end
 
 Sinatra.register Appetizer::UI::Assets
+
+# Required at the bottom so it can conditionally require a few things
+# based on Appetizer::UI::Assets.compiled?.
+
+require "appetizer/ui/assets/delivery"
