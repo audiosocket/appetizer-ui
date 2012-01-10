@@ -1,5 +1,13 @@
 window.Appetizer ||= {}
 
+# Parse JSON errors, returning a sensible value when
+# JSON parsing failed.
+Appetizer.parseJSONErrors = (text) ->
+  try
+    $.parseJSON(test).errors
+  catch err
+    [new Error "Unknown plateform error."]
+
 # All Backbone's classes that inherit from Backbone.Event
 # are also given a "one" method, which can be used to fire
 # a callback only on the next occurence of a given event.
