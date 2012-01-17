@@ -5,6 +5,7 @@ require "sass"
 require "securerandom"
 require "sinatra/base"
 require "sprockets"
+require "sprockets/sass"
 require "uglifier"
 require "yui/compressor"
 
