@@ -4,6 +4,7 @@
 #= require underscore.string
 
 #= require backbone
+#= require backbone.modelbinding
 
 #= require appetizer/core
 #= require appetizer/model
