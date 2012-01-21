@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- test/*`.split("\n")
   gem.name          = "appetizer-ui"
   gem.require_paths = ["lib"]
-  gem.version       = "0.4.0"
+  gem.version       = "0.5.0"
 
   gem.required_ruby_version = ">= 1.9.2"
 
