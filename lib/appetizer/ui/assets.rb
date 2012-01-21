@@ -74,8 +74,8 @@ module Appetizer
 
           def assets *names
             names.flat_map do |name|
-              next asset name if Appetizer::UI::Assets.compiled?
               next unless asset = App.assets[name]
+              next asset name if Appetizer::UI::Assets.compiled?
 
               [asset.dependencies, asset].flatten.map do |dep|
                 "/assets/#{dep.logical_path}?body=true&buster=#{SecureRandom.hex 10}"
