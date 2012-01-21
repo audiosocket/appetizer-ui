@@ -75,13 +75,12 @@ module Appetizer
           def assets *names
             names.flat_map do |name|
               next asset name if Appetizer::UI::Assets.compiled?
-
-              asset = App.assets[name]
+              next unless asset = App.assets[name]
 
               [asset.dependencies, asset].flatten.map do |dep|
                 "/assets/#{dep.logical_path}?body=true&buster=#{SecureRandom.hex 10}"
               end
-            end
+            end.compact
           end
 
           def cdnify path
