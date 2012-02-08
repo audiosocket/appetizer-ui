@@ -1,6 +1,7 @@
 #= require ./jasmine
 #= require ./jasmine-html
 #= require ./jasmine-jquery-matchers
+#= require_tree ./backbone.modelbinding
 
 jasmineEnv = jasmine.getEnv()
 jasmineEnv.updateInterval = 1000
