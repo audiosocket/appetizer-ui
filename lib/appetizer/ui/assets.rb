@@ -13,7 +13,7 @@ module App
     @sprockets ||= Sprockets::Environment.new.tap do |s|
       if Appetizer::UI::Assets.compiled?
         s.register_bundle_processor "application/javascript", :uglifier do |ctx, data|
-          Uglifier.compile data
+          Uglifier.compile data, mangle: false, squeeze: false, seqs: false
         end
 
         s.register_bundle_processor "text/css", :yui do |ctx, data|
