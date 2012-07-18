@@ -1,3 +1,0 @@
-<div style="background-color:pink;border:1px solid red">
-  Missing template for <%= @constructor.name %>.
-</div>
