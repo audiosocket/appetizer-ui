@@ -34,8 +34,6 @@ module App
       %w(css img js views).each do |d|
         s.append_path "./app/#{d}"
         s.append_path "./vendor/#{d}"
-        s.append_path File.expand_path("../app/#{d}", __FILE__)
-        s.append_path File.expand_path("../vendor/#{d}", __FILE__)
       end
     end
   end
