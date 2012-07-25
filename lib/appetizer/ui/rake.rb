@@ -1,11 +1,17 @@
 require "appetizer/rake"
+require "vendorer"
 
 # For Heroku.
+
+desc "Download vendored assets"
+task :vendorer => :init do
+  Vendorer.new(update: true).parse File.read('Vendorfile')
+end
 
 task "assets:precompile" => :compile
 
 desc "Compile the app's CSS and JS files."
-task :compile => :init do
+task :compile => :vendorer do
   ENV["APPETIZER_MINIFY_ASSETS"] = "true"
 
   require "appetizer/ui/assets"

@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "sprockets",      "~> 2.1"
   gem.add_dependency "sprockets-sass", "~> 0.6"
   gem.add_dependency "uglifier",       "~> 1.0"
+  gem.add_dependency "vendorer",       "~> 0.1"
   gem.add_dependency "yajl-ruby",      "~> 1.0"
   gem.add_dependency "yui-compressor", "~> 0.9"
 end
