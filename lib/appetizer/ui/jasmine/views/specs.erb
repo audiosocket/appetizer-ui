@@ -4,13 +4,15 @@
   <head>
     <title>Specs</title>
 
-    <script>App = {}</script>
+    <script>
+      App = {}
+    </script>
 
     <% assets("jasmine.css").each do |css| %>
     <link href="<%= css %>" rel="stylesheet" type="text/css">
     <% end %>
 
-    <% assets("app.js", "spec-runner.js", "spec-helper.js").each do |js| %>
+    <% assets("app.js", "spec-runner.js", "jasmine-jquery.js", "spec-helper.js").each do |js| %>
     <script src="<%= js %>"></script>
     <% end %>
   </head>
