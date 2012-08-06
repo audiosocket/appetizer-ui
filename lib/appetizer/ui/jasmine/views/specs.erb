@@ -12,7 +12,7 @@
     <link href="<%= css %>" rel="stylesheet" type="text/css">
     <% end %>
 
-    <% assets("app.js", "spec-runner.js", "jasmine-jquery.js", "spec-helper.js").each do |js| %>
+    <% assets("app.js", "spec-runner.js", "sinon.js", "jasmine-sinon.js", "jasmine-jquery.js", "spec-helper.js").each do |js| %>
     <script src="<%= js %>"></script>
     <% end %>
   </head>
