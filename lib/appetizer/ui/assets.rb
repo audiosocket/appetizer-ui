@@ -12,12 +12,6 @@ module App
   def self.assets
     @sprockets ||= Sprockets::Environment.new.tap do |s|
       if Appetizer::UI::Assets.compiled?
-        if Appetizer::UI::Assets.uglify?
-          s.register_bundle_processor "application/javascript", :uglifier do |ctx, data|
-            Uglifier.compile data, mangle: false, squeeze: false, seqs: false
-          end
-        end
-
         s.register_bundle_processor "text/css", :yui do |ctx, data|
           YUI::CssCompressor.new.compress data
         end
@@ -46,10 +40,6 @@ module Appetizer
     module Assets
       def self.compiled?
         App.production? or ENV["APPETIZER_USE_COMPILED_ASSETS"]
-      end
-
-      def self.uglify?
-        compiled? and not ENV["APPETIZER_NO_UGLIFY"]
       end
 
       def self.manifest
