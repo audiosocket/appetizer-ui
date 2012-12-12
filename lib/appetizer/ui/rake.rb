@@ -1,4 +1,5 @@
 require "appetizer/rake"
+require "jasmine-headless-webkit"
 require "vendorer"
 
 # For Heroku.
@@ -36,4 +37,10 @@ task :compile => :vendorer do
   File.open "public/assets/manifest.yml", "wb" do |f|
     YAML.dump manifest, f
   end
+end
+
+Jasmine::Headless::Task.new("specs") do |t|
+  t.colors = true
+  t.keep_on_error = true
+  t.jasmine_config = ENV["JASMINE_HEADLESS_CONFIG"] || "config/jasmine.yml"
 end
