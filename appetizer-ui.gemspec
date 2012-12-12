@@ -27,4 +27,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "vendorer",       "~> 0.1"
   gem.add_dependency "yajl-ruby",      "~> 1.0"
   gem.add_dependency "yui-compressor", "~> 0.9"
+
+  gem.add_development_dependency "jasmine-headless-webkit", "~> 0.8.4"
 end
