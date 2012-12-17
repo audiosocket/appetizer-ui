@@ -23,16 +23,6 @@ module App
         end
       end
 
-      # NOTE: Seems like Sprockets' built-in FileStore is kinda busted
-      # in the way it creates directories or processes key names (or I
-      # don't understand it yet), so we're manually creating the
-      # over-nested directory for the moment.
-
-      unless Appetizer::UI::Assets.compiled?
-        FileUtils.mkdir_p "tmp/sprockets/sprockets"
-        s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
-      end
-
       %w(css img js views).each do |d|
         s.append_path "./app/#{d}"
         s.append_path "./vendor/#{d}"
