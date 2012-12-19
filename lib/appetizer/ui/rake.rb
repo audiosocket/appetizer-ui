@@ -20,7 +20,18 @@ task :compile => :vendorer do
 
   manifest = {}
 
-  App.assets.each_file do |path|
+  if ENV["APPETIZER_ASSETS_ENTRY_POINTS"]
+    assets = ENV["APPETIZER_ASSETS_ENTRY_POINTS"].split(",").map(&:strip).map do |name|
+      next unless asset = App.assets[name]
+
+      [asset.dependencies, asset]
+    end.flatten.compact.uniq.map(&:pathname).each
+  else
+    assets = App.assets.each_file
+  end
+
+
+  assets.each do |path|
     next if File.basename(path).start_with? "_"
     next if %r|app/views| =~ path.to_s and not %r|app/views/client| =~ path.to_s
 
