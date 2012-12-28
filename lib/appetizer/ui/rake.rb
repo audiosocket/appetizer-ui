@@ -11,7 +11,7 @@ end
 task "assets:precompile" => :compile
 
 desc "Compile the app's CSS and JS files."
-task :compile => :vendorer do
+task :compile => :init do
   ENV["APPETIZER_MINIFY_ASSETS"] = "true"
 
   require "appetizer/ui/assets"
