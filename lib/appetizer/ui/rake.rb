@@ -52,7 +52,7 @@ end
 if App.development?
   require "jasmine-headless-webkit"
 
-  Jasmine::Headless::Task.new("specs") do |t|
+  Jasmine::Headless::Task.new("test") do |t|
     t.colors = true
     t.keep_on_error = true
     t.jasmine_config = ENV["JASMINE_HEADLESS_CONFIG"] || "config/jasmine.yml"
