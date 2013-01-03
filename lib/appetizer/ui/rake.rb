@@ -49,7 +49,7 @@ task :compile => :init do
   end
 end
 
-if App.development?
+unless App.production?
   require "jasmine-headless-webkit"
 
   Jasmine::Headless::Task.new("test") do |t|
