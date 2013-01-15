@@ -18,9 +18,9 @@ module App
           end
         end
 
-        s.register_bundle_processor "text/css", :yui do |ctx, data|
-          YUI::CssCompressor.new.compress data
-        end
+        #s.register_bundle_processor "text/css", :yui do |ctx, data|
+        #  YUI::CssCompressor.new.compress data
+        #end
       end
 
       # NOTE: Seems like Sprockets' built-in FileStore is kinda busted
