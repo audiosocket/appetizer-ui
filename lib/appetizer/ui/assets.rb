@@ -31,11 +31,11 @@ module App
       unless Appetizer::UI::Assets.compiled?
         FileUtils.mkdir_p "tmp/sprockets/sprockets"
         s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
+      end
 
-        %w(css img js views).each do |d|
-          s.append_path "./app/#{d}"
-          s.append_path "./vendor/#{d}"
-        end
+      %w(css img js views).each do |d|
+        s.append_path "./app/#{d}"
+        s.append_path "./vendor/#{d}"
       end
     end
   end
