@@ -18,9 +18,9 @@ module App
           end
         end
 
-        #s.register_bundle_processor "text/css", :yui do |ctx, data|
-        #  YUI::CssCompressor.new.compress data
-        #end
+        s.register_bundle_processor "text/css", :yui do |ctx, data|
+          YUI::CssCompressor.new.compress data
+        end
       end
 
       # NOTE: Seems like Sprockets' built-in FileStore is kinda busted
@@ -31,11 +31,11 @@ module App
       unless Appetizer::UI::Assets.compiled?
         FileUtils.mkdir_p "tmp/sprockets/sprockets"
         s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
-      end
 
-      %w(css img js views).each do |d|
-        s.append_path "./app/#{d}"
-        s.append_path "./vendor/#{d}"
+        %w(css img js views).each do |d|
+          s.append_path "./app/#{d}"
+          s.append_path "./vendor/#{d}"
+        end
       end
     end
   end
