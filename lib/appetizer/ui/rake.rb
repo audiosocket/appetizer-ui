@@ -49,7 +49,7 @@ task :compile => :init do
   end
 end
 
-unless App.production?
+if Gem::Specification.find { |spec| spec.name == "jasmine-headless-webkit" }
   require "jasmine-headless-webkit"
 
   Jasmine::Headless::Task.new("test") do |t|
