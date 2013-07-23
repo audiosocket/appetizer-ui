@@ -8,7 +8,6 @@ module Appetizer
         return if App.production?
 
         %w(css img js views).each do |d|
-          App.assets.append_path "./spec/#{d}"
           App.assets.append_path File.expand_path("../jasmine/#{d}", __FILE__)
         end
 

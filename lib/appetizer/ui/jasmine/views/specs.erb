@@ -9,11 +9,17 @@
     </script>
 
     <% assets("jasmine.css").each do |css| %>
-    <link href="<%= css %>" rel="stylesheet" type="text/css">
+      <link href="<%= css %>" rel="stylesheet" type="text/css">
     <% end %>
 
-    <% assets("app.js", "spec-runner.js", "jasmine-jquery.js", "jasmine-mocks.js", "spec-helper.js", "fixtures.js").each do |js| %>
-    <script src="<%= js %>"></script>
+    <% assets("spec-runner.js", "jasmine-jquery.js", "jasmine-mocks.js").each do |js| %>
+      <script src="<%= js %>"></script>
+    <% end %>
+
+    <% asset_apps.each do |app| %>
+      <% assets("#{app}/app.js", "#{app}/spec-helper.js", "#{app}/fixtures.js").each do |js| %>
+        <script src="<%= js %>"></script>
+      <% end %>
     <% end %>
   </head>
 

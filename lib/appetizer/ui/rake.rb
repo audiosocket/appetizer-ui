@@ -26,9 +26,6 @@ task :compile => :init do
 
   assets.each do |path|
     if entry_points.include? File.basename(path)
-      next if File.basename(path).start_with? "_"
-      next if %r|app/views| =~ path.to_s and not %r|app/views/client| =~ path.to_s
-
       if asset = App.assets[path]
         manifest[asset.logical_path] = asset.digest_path
         file = "public/assets/#{asset.digest_path}"

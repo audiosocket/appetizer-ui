@@ -66,6 +66,11 @@ module Appetizer
 
       def self.registered app
         app.helpers do
+          def asset_apps
+            apps = Dir.glob(Dir.pwd + "/app/js/*")
+            apps.collect { |path| File.basename(path) if File.directory?(path) }.compact
+          end
+
           def asset name
             if Appetizer::UI::Assets.compiled?
               return cdnify "/assets/#{Appetizer::UI::Assets.manifest[name]}"
