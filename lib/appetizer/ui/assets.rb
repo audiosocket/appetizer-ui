@@ -1,8 +1,11 @@
 require "coffee-script"
 require "eco"
 require "fileutils"
+require "sass"
 require "sinatra/base"
 require "sprockets"
+require "sprockets-helpers"
+require "sprockets-sass"
 require "appetizer/ui/globber"
 require "uglifier"
 require "yui/compressor"
@@ -20,6 +23,12 @@ module App
         s.register_bundle_processor "text/css", :yui do |ctx, data|
           YUI::CssCompressor.new.compress data
         end
+      end
+
+      Sprockets::Helpers.configure do |config|
+        config.environment = s
+        config.prefix      = "/assets"
+        config.digest      = true
       end
 
       # NOTE: Seems like Sprockets' built-in FileStore is kinda busted
