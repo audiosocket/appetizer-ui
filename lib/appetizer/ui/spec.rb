@@ -7,7 +7,7 @@ module Appetizer
       def self.registered app
         return if App.production?
 
-        %w(css img js views).each do |d|
+        %w(css img js views fonts).each do |d|
           App.assets.append_path File.expand_path("../jasmine/#{d}", __FILE__)
         end
 
