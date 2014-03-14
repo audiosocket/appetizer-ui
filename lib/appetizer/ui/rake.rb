@@ -25,7 +25,9 @@ task :compile => :init do
   manifest = {}
 
   assets.each do |path|
-    if entry_points.include? File.basename(path)
+    if entry_points.include?(File.basename(path)) ||
+      ((ext = File.extname(path)) && %w(.png .jpg .svg .eot .ttf .woff).include?(ext.downcase))
+
       if asset = App.assets[path]
         manifest[asset.logical_path] = asset.digest_path
         file = "public/assets/#{asset.digest_path}"
