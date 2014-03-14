@@ -2,8 +2,7 @@ require "coffee-script"
 require "eco"
 require "fileutils"
 require "sinatra/base"
-require "sprockets"
-require "appetizer/ui/globber"
+require "sprockets-helpers"
 require "uglifier"
 require "yui/compressor"
 
@@ -22,6 +21,12 @@ module App
         end
       end
 
+      Sprockets::Helpers.configure do |config|
+        config.environment = s
+        config.prefix      = "/assets"
+        config.digest      = true
+      end
+
       # NOTE: Seems like Sprockets' built-in FileStore is kinda busted
       # in the way it creates directories or processes key names (or I
       # don't understand it yet), so we're manually creating the
@@ -32,7 +37,7 @@ module App
         s.cache = Sprockets::Cache::FileStore.new "tmp/sprockets"
       end
 
-      %w(css img js views).each do |d|
+      %w(css img js views fonts).each do |d|
         s.append_path "./app/#{d}"
         s.append_path "./vendor/#{d}"
       end
