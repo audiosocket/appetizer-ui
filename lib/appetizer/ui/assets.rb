@@ -3,7 +3,6 @@ require "eco"
 require "fileutils"
 require "sinatra/base"
 require "sprockets-helpers"
-require "appetizer/ui/globber"
 require "uglifier"
 require "yui/compressor"
 
