@@ -17,8 +17,10 @@ module Appetizer
       # All production apps better be using SSL.
 
       app.configure :production do
-        require "rack/ssl"
-        app.use Rack::SSL
+        unless ENV["DISABLE_SSL"]
+          require "rack/ssl"
+          app.use Rack::SSL
+        end
       end
 
       # This stack in primarily intended for deployment on Heroku, so
