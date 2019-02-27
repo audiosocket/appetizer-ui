@@ -4,7 +4,6 @@ require "fileutils"
 require "sinatra/base"
 require "sprockets-helpers"
 require "uglifier"
-require "yui/compressor"
 
 module App
   def self.assets
@@ -14,10 +13,6 @@ module App
           s.register_bundle_processor "application/javascript", :uglifier do |ctx, data|
             Uglifier.compile data, mangle: false, squeeze: false, seqs: false
           end
-        end
-
-        s.register_bundle_processor "text/css", :yui do |ctx, data|
-          YUI::CssCompressor.new.compress data
         end
       end
 
