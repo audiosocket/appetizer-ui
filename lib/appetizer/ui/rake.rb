@@ -31,7 +31,10 @@ task :compile => :init do
         file = "public/assets/#{asset.digest_path}"
 
         FileUtils.mkdir_p File.dirname file
+        gzip = "#{file}.gz"
+
         asset.write_to file
+        asset.write_to gzip if file =~ /\.(js|css)$/
       end
     end
   end
